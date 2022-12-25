@@ -1,5 +1,6 @@
 import sys, pygame
 from bullet import Bullet
+from alien import Alien
 
 
 def check_events(ai_settings, screen, ship, bullets):
@@ -13,6 +14,8 @@ def check_events(ai_settings, screen, ship, bullets):
         elif event.key == pygame.K_SPACE:
             # Create a new bullet and add on bullets group
             fire_bullet(ai_settings, screen, ship, bullets)
+        elif event.key == pygame.K_q:
+            sys.exit()
 
     def fire_bullet(ai_settinfs, screen, ship, bullets): 
         if len(bullets) < ai_settings.bullets_allowed:
@@ -34,13 +37,27 @@ def check_events(ai_settings, screen, ship, bullets):
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
+def create_fleet(ai_settings, screen, aliens):
+    """Create a complete fleet from alien"""
+    # Create an alien and acount the aliens number in one line
+    alien = Alien(ai_settings, screen)
+    alien_width = alien.rect.width
+    available_space_x = ai_settings.screen_width - 2 * alien_width
+    number_aliens_x = int(available_space_x / (2 * alien_width))
+    # Create the first line of aliens
+    for alien_number in range(number_aliens_x):
+        alien = Alien(ai_settings, screen)
+        alien.x = alien_width + 2 # - alien_width - alien_number
+        alien_rect.x = alien.x
+        aliens.add(alien)
 
-def update_screen(ai_settings, screen, ship, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets):
     screen.fill(ai_settings.bg_color)
     # Redraw all the bullets behind of alien spacecraft
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
+    aliens.draw(screen)
     pygame.display.flip()
 
 def update_bullets(bullets):
