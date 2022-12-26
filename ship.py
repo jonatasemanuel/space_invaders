@@ -1,9 +1,11 @@
 import pygame
+from pygame.sprite import Sprite
 
 
-class Ship():
+class Ship(Sprite):
     """Start the spacecraft and set you initial position"""
     def __init__(self, ai_settings, screen) -> None:
+        super(Ship, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
         self.image = pygame.image.load('alien_invasion/ship.pbm')
