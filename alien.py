@@ -10,7 +10,7 @@ class Alien(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
         # Load an alien picture and set your rect atribute
-        self.image = pygame.image.load('alien_invasion/ship.pbm')
+        self.image = pygame.image.load('alien_invasion/alien_ship.pbm')
         self.rect = self.image.get_rect()
         # Start an alien next to the edge on left of screen
         self.rect.x = self.rect.width
